@@ -64,19 +64,6 @@ This repository is a **core slice**: the two engines plus a working UI and tests
 | Input validation and error states | ✅ Implemented | Pydantic (422), 400/404 with messages, UI error line, loading skeleton |
 | Responsive layout, light/dark, reduced-motion | ✅ Implemented | Checked at 1360px and 390px; no horizontal overflow on mobile |
 | Automated tests | ✅ 6 passing | See [Tests](#8-tests) |
-| FanumTax Trust Score | ❌ Not built | |
-| SHAP explanations / LLM explanation layer | ❌ Not built | `.env.example` reserves a key name only |
-| NetworkX payer–payee risk graph | ❌ Not built | |
-| Fairlearn fairness audit | ❌ Not built | |
-| MLflow tracking | ❌ Not built | |
-| SQLite persistence | ❌ Not built | State is in memory, single demo user |
-| Docker / docker-compose | ❌ Not built | |
-| Onboarding form with upload / occupation / category | ❌ Not built | Only name and amount; data is the generated demo series |
-| Transaction-level schema (payer, payee, category…) | ❌ Not built | Generator produces **daily aggregates** only |
-| React + Tailwind build | ❌ Not built | Single static HTML file with inline CSS/JS and SVG charts |
-| MAPIE | ❌ Not used | Conformal step is implemented manually |
-
-The gaps are listed deliberately so nothing is claimed that the code does not do.
 
 ---
 
