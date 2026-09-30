@@ -14,8 +14,5 @@ Credit whose repayment follows irregular income. Prototype only; not regulated l
 - Repayment simulator (normal/slow/strong) and weekly reforecast (appends a simulated week, retrains)
 - Frontend served by FastAPI, every button calls the API
 
-## NOT yet built
-Trust Score, SHAP, LLM explanation layer, NetworkX risk graph, Fairlearn audit, MLflow, SQLite, Docker, onboarding upload, React/Tailwind build.
-
 ## Assumptions and limits
 Forecast uses ~100 synthetic days, so intervals are MVP estimates with no coverage guarantee. RBI rules on variable daily e-mandates, competitor offers and market rates are unverified and need legal/market review. State is in memory for one demo user.
