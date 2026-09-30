@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FANUMTAX — Credit that moves with your income</title>
+<style>
+/* Tokens. One accent (emerald), zinc neutrals, one radius (6px), light/dark via system preference. */
+:root{--bg:#fafafa;--fg:#18181b;--mut:#52525b;--line:#e4e4e7;--panel:#fff;--acc:#047857;--acc-fg:#fff;--warn:#b45309;--bad:#b91c1c;--r:6px}
+@media(prefers-color-scheme:dark){:root{--bg:#0c0c0e;--fg:#f4f4f5;--mut:#a1a1aa;--line:#27272a;--panel:#131316;--acc:#34d399;--acc-fg:#052e22;--warn:#fbbf24;--bad:#f87171}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+.w{max-width:1200px;margin:0 auto;padding:0 20px}
+nav{height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+.logo{font-weight:800;letter-spacing:.14em}.logo b{color:var(--acc)}
+h1{font-size:clamp(2.25rem,6vw,4.25rem);line-height:1.02;letter-spacing:-.04em;margin:0 0 20px;max-width:12ch}
+h2{font-size:1.5rem;letter-spacing:-.02em;margin:0 0 6px}
+p{color:var(--mut);max-width:65ch;margin:0 0 16px}
+.hero{min-height:calc(100dvh - 64px);display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:center;padding:32px 0}
+.btn{font:inherit;font-weight:600;padding:12px 20px;border-radius:var(--r);border:1px solid var(--acc);background:var(--acc);color:var(--acc-fg);cursor:pointer;text-decoration:none;display:inline-block;white-space:nowrap;transition:transform .12s}
+.btn:active{transform:translateY(1px) scale(.98)}.btn.g{background:transparent;color:var(--fg);border-color:var(--line)}
+.btn:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.compare{border-top:2px solid var(--fg)}
+.row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.row span:first-child{color:var(--mut)}.row b{font-variant-numeric:tabular-nums;text-align:right}
+section.app{padding:56px 0;border-top:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:32px}
+.c7{grid-column:span 7}.c5{grid-column:span 5}.c12{grid-column:span 12}
+.panel{border:1px solid var(--line);background:var(--panel);border-radius:var(--r);padding:20px}
+label{display:block;font-weight:600;margin-bottom:8px;font-size:.9rem}
+input{font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--mut);border-radius:var(--r);padding:10px 12px;width:100%}
+.f{display:grid;grid-template-columns:1fr 1fr auto;gap:16px;align-items:end}
+.big{font-size:2.25rem;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;padding:4px 10px;border-radius:var(--r);font-weight:700;font-size:.85rem;border:1px solid currentColor}
+.ok{color:var(--acc)}.wn{color:var(--warn)}.no{color:var(--bad)}
+.sk{height:160px;border-radius:var(--r);background:linear-gradient(90deg,var(--line),transparent,var(--line));background-size:200% 100%;animation:s 1.4s linear infinite}
+@keyframes s{to{background-position:-200% 0}}
+.err{color:var(--bad);font-weight:600}.hide{display:none}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tabs .btn.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.delta{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;text-align:center}
+small,.note{color:var(--mut);font-size:.85rem}svg{width:100%;height:auto;display:block}
+@media(max-width:768px){.hero{grid-template-columns:1fr;min-height:auto}.c7,.c5{grid-column:span 12}.f{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<div class="w"><nav><span class="logo">FANUM<b>TAX</b></span><a class="btn g" href="#app">View Demo</a></nav>
+<header class="hero"><div>
+<h1>Credit that moves with your income.</h1>
+<p>Traditional loans expect steady pay. FanumTax repays 12% of each day's UPI inflow, so slow days cost less.</p>
+<a class="btn" href="#app">Get Started</a></div>
+<div class="compare"><div class="row"><span>Traditional EMI</span><b>Same amount, every day</b></div>
+<div class="row"><span>FanumTax</span><b>12% of what you earned</b></div>
+<div class="row"><span>Rs 1,000 day</span><b>Rs 120</b></div>
+<div class="row"><span>Rs 500 day</span><b>Rs 60</b></div>
+<div class="row"><span>Rs 200 day</span><b>Rs 24</b></div></div></header></div>
+
+<section class="app" id="app"><div class="w">
+<h2>Try it with Ramesh</h2>
+<p>Ramesh runs a tea stall. The UPI history below is synthetic and generated from a fixed seed. No real bank or UPI access is used.</p>
+<div class="panel f" style="margin-bottom:32px">
+<div><label for="n">Name</label><input id="n" value="Ramesh"></div>
+<div><label for="a">Requested loan (Rs)</label><input id="a" type="number" min="500" max="50000" value="5000"></div>
+<button class="btn" id="go">Use Ramesh Demo</button></div>
+<div id="err" class="err" role="alert"></div>
+<div id="sk" class="sk hide"></div>
+<div id="out" class="hide">
+<div class="grid">
+<div class="c7"><h2>Daily UPI inflow</h2><p class="note">Last 60 days. Weekends run higher; dips are slow periods.</p><div id="hist"></div>
+<div id="stats"></div></div>
+<div class="c5"><h2>Income forecast, per day</h2><p class="note">P10 is the conservative estimate used for affordability.</p><div id="range"></div>
+<div class="panel" id="dec" style="margin-top:16px"></div></div>
+<div class="c12"><h2>Repayment simulator</h2>
+<p class="note">Same loan, three kinds of weeks. Repayment follows income.</p>
+<div class="tabs" id="tabs"><button class="btn g on" data-k="normal">Normal</button><button class="btn g" data-k="slow">Slow</button><button class="btn g" data-k="strong">Strong</button></div>
+<div id="sim"></div></div>
+<div class="c12"><h2>Weekly reforecast</h2>
+<p class="note">Adds a simulated week of transactions, retrains the model and recomputes the decision.</p>
+<button class="btn" id="rf">Run Weekly Reforecast</button>
+<div id="rfo" style="margin-top:16px"></div></div></div>
+<p class="note" style="margin-top:40px">FanumTax is a hackathon prototype and does not provide regulated lending or financial advice. All data is synthetic. Flexible repayment reduces pressure on slow days but does not remove default risk. Forecast intervals are MVP estimates, not guarantees.</p>
+</div></div></section>
+
+<script>
+const $=id=>document.getElementById(id), R=n=>"Rs "+Math.round(n).toLocaleString("en-IN");
+const api=async(p,o)=>{const r=await fetch(p,o);const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(typeof j.detail==="string"?j.detail:"Check your inputs and try again.");return j};
+const row=(a,b)=>`<div class="row"><span>${a}</span><b>${b}</b></div>`;
+function bars(d,key,h=180){const m=Math.max(...d.map(x=>x[key]))||1,w=800,bw=w/d.length;
+ return `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Bar chart of ${key} by day">`+d.map((x,i)=>{const bh=x[key]/m*(h-10);
+ return `<rect x="${i*bw+1}" y="${h-bh}" width="${bw-2}" height="${bh}" fill="var(--acc)" opacity=".85"><title>${x.date||"Day "+x.day}: ${R(x[key])}</title></rect>`}).join("")+`<line x1="0" x2="${w}" y1="${h}" y2="${h}" stroke="var(--line)"/></svg>`}
+function rangeViz(f){const max=f.p90*1.15,x=v=>v/max*100;
+ return `<svg viewBox="0 0 400 90" role="img" aria-label="Forecast range"><rect x="0" y="40" width="400" height="8" fill="var(--line)"/>
+ <rect x="${x(f.p10)*4}" y="36" width="${(x(f.p90)-x(f.p10))*4}" height="16" fill="var(--acc)" opacity=".35"/>
+ ${[["p10",f.p10],["p50",f.p50],["p90",f.p90]].map(([k,v])=>`<line x1="${x(v)*4}" x2="${x(v)*4}" y1="28" y2="60" stroke="var(--fg)" stroke-width="${k=="p10"?4:2}"/><text x="${Math.min(Math.max(x(v)*4,18),382)}" y="18" text-anchor="middle" font-size="12" fill="var(--fg)">${k.toUpperCase()}</text><text x="${Math.min(Math.max(x(v)*4,25),375)}" y="78" text-anchor="middle" font-size="12" fill="var(--mut)">${Math.round(v)}</text>`).join("")}</svg>`}
+function decision(d){const c=d.status=="Eligible"?"ok":d.status=="Not eligible"?"no":"wn";
+ return `<span class="tag ${c}">${d.status}</span><p style="margin:12px 0">${d.reason}</p>`+
+ row("Requested",R(d.requested))+row("Conservative (P10) income",R(d.p10_income)+"/day")+row("Repayment at P10 (12%)",R(d.daily_repayment_at_p10)+"/day")+
+ row("Projected days at P10",d.days_at_p10??"Never clears")+row("Projected days at P50",d.days_at_p50??"Never clears")+row("Maximum allowed",d.max_days+" days")+row("Largest amount clearing in 90 days at P10",R(d.max_safe_amount))}
+function render(o){$("hist").innerHTML=bars(o.history,"inflow");const s=o.summary;
+ $("stats").innerHTML=row("Average / median daily inflow",R(s.avg)+" / "+R(s.median))+row("Volatility (std ÷ mean)",s.volatility_cv)+row("Active days",s.active_days)+row("Transactions per day",s.avg_txn_per_day)+row("Largest day",R(s.largest))+row("Last 2 weeks vs prior 2",(s.trend_pct>0?"+":"")+s.trend_pct+"%");
+ $("range").innerHTML=rangeViz(o.forecast)+`<small>Conformal adjustment: ${o.forecast.conformal_qhat}. ${o.forecast.note}</small>`;$("dec").innerHTML=decision(o.decision)}
+async function sim(k){document.querySelectorAll("#tabs .btn").forEach(b=>b.classList.toggle("on",b.dataset.k==k));
+ const d=await api("/api/repayment/"+k),l=d[d.length-1],amt=+$("a").value;
+ $("sim").innerHTML=`<div class="grid"><div class="c7">${bars(d.map(x=>({day:x.day,v:x.income})),"v",140)}<small>Daily income</small>${bars(d.map(x=>({day:x.day,v:x.repayment})),"v",140)}<small>Daily repayment (12%)</small></div>
+ <div class="c5">${row("Days simulated",d.length)}${row("Day 1: income → repayment",R(d[0].income)+" → "+R(d[0].repayment))}${row("Total repaid",R(l.cumulative))}${row("Remaining after day "+l.day,R(l.remaining))}${row("Status",l.remaining<=0.5?"Cleared in "+l.day+" days":"Not cleared by day "+l.day)}</div></div>`}
+$("tabs").onclick=e=>e.target.dataset.k&&sim(e.target.dataset.k).catch(x=>$("err").textContent=x.message);
+$("go").onclick=async()=>{$("err").textContent="";$("out").classList.add("hide");$("sk").classList.remove("hide");$("rfo").innerHTML="";
+ try{const o=await api("/api/evaluate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:$("n").value,amount:+$("a").value})});
+  render(o);await sim("normal");$("out").classList.remove("hide")}catch(e){$("err").textContent=e.message}$("sk").classList.add("hide")};
+$("rf").onclick=async()=>{try{const r=await api("/api/reforecast",{method:"POST"}),p=r.previous,c=r.current;render(c);
+ const box=(t,f,d)=>`<div><small>${t}</small><div class="big">${R(f.p10)}</div><small>P10 · P50 ${R(f.p50)} · ${d.status}</small></div>`;
+ $("rfo").innerHTML=`<div class="panel"><p class="note">Week ${r.week} added</p><div class="delta">${box("Previous",p.forecast,p.decision)}<b aria-hidden="true">→</b>${box("New",c.forecast,c.decision)}</div>
+ ${row("Repayment at P10, per day",R(p.decision.daily_repayment_at_p10)+" → "+R(c.decision.daily_repayment_at_p10))}${row("Projected days at P10",(p.decision.days_at_p10??"never")+" → "+(c.decision.days_at_p10??"never"))}</div>`;
+ sim(document.querySelector("#tabs .on").dataset.k)}catch(e){$("rfo").innerHTML=`<p class="err">${e.message}</p>`}};
+</script></body></html>
