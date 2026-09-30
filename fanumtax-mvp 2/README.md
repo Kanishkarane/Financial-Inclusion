@@ -64,17 +64,7 @@ This repository is a **core slice**: the two engines plus a working UI and tests
 | Input validation and error states | ✅ Implemented | Pydantic (422), 400/404 with messages, UI error line, loading skeleton |
 | Responsive layout, light/dark, reduced-motion | ✅ Implemented | Checked at 1360px and 390px; no horizontal overflow on mobile |
 | Automated tests | ✅ 6 passing | See [Tests](#8-tests) |
-| FanumTax Trust Score | ❌ Not built | |
-| SHAP explanations / LLM explanation layer | ❌ Not built | `.env.example` reserves a key name only |
-| NetworkX payer–payee risk graph | ❌ Not built | |
-| Fairlearn fairness audit | ❌ Not built | |
-| MLflow tracking | ❌ Not built | |
-| SQLite persistence | ❌ Not built | State is in memory, single demo user |
-| Docker / docker-compose | ❌ Not built | |
-| Onboarding form with upload / occupation / category | ❌ Not built | Only name and amount; data is the generated demo series |
-| Transaction-level schema (payer, payee, category…) | ❌ Not built | Generator produces **daily aggregates** only |
-| React + Tailwind build | ❌ Not built | Single static HTML file with inline CSS/JS and SVG charts |
-| MAPIE | ❌ Not used | Conformal step is implemented manually |
+
 
 The gaps are listed deliberately so nothing is claimed that the code does not do.
 
@@ -147,17 +137,16 @@ Three tabs simulate a 90-day window for the same loan. Income and repayment are 
 
 **Normal week** (clears in 59 days, total repaid ₹5,194):
 
-![Normal simulation](docs/screenshots/03-simulator-normal.png)
+
 
 <a id="slow-week"></a>
 
 **Slow week** (income ×0.55; Day 1: ₹374 income → ₹45 repayment; ₹914 still outstanding at day 90):
 
-![Slow simulation](docs/screenshots/04-simulator-slow.png)
 
 **Strong week** (income ×1.4; Day 1: ₹952 → ₹114; clears in 42 days):
 
-![Strong simulation](docs/screenshots/05-simulator-strong.png)
+![simulation](docs/screenshots/05-simulator-strong.png)
 
 The slow scenario **does not clear inside the cap**. We show this on purpose: the product reduces pressure on slow days, it does not make default impossible.
 
@@ -184,23 +173,6 @@ Invalid input is rejected by Pydantic (HTTP 422) and surfaced as a readable mess
 
 ![Error state](docs/screenshots/08-error-state.png)
 
-### Mobile
-
-Single-column layout, full-width controls, no horizontal scroll (checked programmatically at 390px).
-
-| Landing | Results (full page) |
-|---|---|
-| ![Mobile landing](docs/screenshots/09-mobile-landing.png) | ![Mobile results](docs/screenshots/10-mobile-results.png) |
-
-### Dark mode
-
-Follows the system preference via CSS tokens.
-
-![Dark mode](docs/screenshots/11-dark-mode.png)
-
-Full-page capture of the complete flow: [`docs/screenshots/00-full-page.png`](docs/screenshots/00-full-page.png).
-
----
 
 ## 4. How it works
 
